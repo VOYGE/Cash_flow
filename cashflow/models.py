@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 
 class OperationStatus(models.Model):
@@ -116,6 +117,21 @@ class CashFlow(models.Model):
         blank=True,
         verbose_name="Комментарий"
     )
+
+    def clean(self):
+        if self.category.operation_type != self.operation_type:
+            raise ValidationError(
+                {
+                    "category": "Категория не относится к выбранному типу операции."
+                }
+            )
+
+        if self.subcategory.category != self.category:
+            raise ValidationError(
+                {
+                    "subcategory": "Подкатегория не относится к выбранной категории."
+                }
+            )
 
     class Meta:
         verbose_name = "Операция ДДС"
