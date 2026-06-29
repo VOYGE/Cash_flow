@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class OperationStatus(models.Model):
@@ -77,6 +78,7 @@ class SubCategory(models.Model):
 
 class CashFlow(models.Model):
     created_at = models.DateField(
+        default=timezone.now,
         verbose_name="Дата создания"
     )
 
@@ -121,4 +123,9 @@ class CashFlow(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.created_at} — {self.amount} ₽"
+        return (
+            f"{self.created_at} | "
+            f"{self.operation_type} | "
+            f"{self.category} | "
+            f"{self.amount} ₽"
+        )
