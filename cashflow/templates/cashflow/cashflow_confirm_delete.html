@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "cashflow/base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<h2>Удаление записи</h2>
+
+<p>
+    Вы действительно хотите удалить запись
+    <strong>{{ object }}</strong>?
+</p>
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <button class="btn btn-danger">
+        Удалить
+    </button>
+
+    <a href="{% url 'cashflow_list' %}"
+       class="btn btn-secondary">
+
+        Отмена
+
+    </a>
+
+</form>
+
+{% endblock %}

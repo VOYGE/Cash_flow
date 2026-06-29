@@ -10,7 +10,31 @@
 </head>
 <body>
 
-<div class="container mt-4">
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'cashflow_list' %}">
+            💰 Cash Flow
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+
+                {{ message }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+                </button>
+
+            </div>
+        {% endfor %}
+    {% endif %}
 
     {% block content %}
     {% endblock %}
@@ -19,6 +43,8 @@
 
 {% block scripts %}
 {% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

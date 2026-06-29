@@ -2,6 +2,8 @@ from django.urls import path
 from .views import (
     CashFlowListView,
     CashFlowCreateView,
+    CashFlowUpdateView,
+    CashFlowDeleteView,
     load_categories,
     load_subcategories,
 )
@@ -20,5 +22,16 @@ urlpatterns = [
         "ajax/load-subcategories/",
         load_subcategories,
         name="ajax_load_subcategories",
+    ),
+    path(
+        "update/<int:pk>/",
+        CashFlowUpdateView.as_view(),
+        name="cashflow_update",
+    ),
+
+    path(
+        "delete/<int:pk>/",
+        CashFlowDeleteView.as_view(),
+        name="cashflow_delete",
     ),
 ]
